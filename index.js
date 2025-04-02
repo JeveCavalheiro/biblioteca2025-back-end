@@ -31,7 +31,7 @@ const Editora = sequelize.define(
         type: DataTypes.STRING(20),
         allowNull: false,
       },
-      enreco: {
+      endereco: {
         type: DataTypes.TEXT,
         allowNull: true
       }
@@ -50,6 +50,18 @@ app.use(express.json());
 
 app.get('/teste', (req, res)=>{
     res.send('Teste ok.');
+});
+
+//rotas crud da tabela editora
+app.get('/editora', async (req, res)=>{
+    const respostaBanco = await Editora.findAll();
+    res.json(respostaBanco);
+});
+
+app.get('/editora/:id', async (req, res)=>{
+    const id = req.params.id;
+    const respostaBanco = await Editora.findByPk(id);
+    res.json(respostaBanco);
 });
 
 app.listen(3000, ()=>{console.log(`Servidor rodando.`) });
